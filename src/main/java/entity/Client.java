@@ -3,8 +3,10 @@ package entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
+@Table(name = "client")
 @Data
 @Builder
 @ToString
@@ -17,9 +19,13 @@ public class Client {
     private int idClient;
     private String firstName;
     private String lastName;
-    @Enumerated(EnumType.STRING)
-    private Education education;
+    private String education;
     private String passport;
     private String city;
     private int age;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "client")
+    private List<Application> applications;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Department department;
+
 }
